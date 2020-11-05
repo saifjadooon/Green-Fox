@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/main_activity_refresh_layout">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.aptech.greenfox.MainActivity"
+        android:orientation="vertical"
+        android:background="@drawable/background1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="3dp"
+            android:background="@android:color/holo_green_dark">
+
+            <TextView
+                android:id="@+id/tv_acc_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/tv_acc_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:gravity="right"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/card_view_table1"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_margin="15dp"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        card_view:cardCornerRadius="15dp"
+                        card_view:cardBackgroundColor="#E6E6E6"
+                        card_view:cardElevation="8dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_table_name_t1"
+                            android:text="TABLE 1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/holo_green_dark"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:text="Item(s)"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="40dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_table_qty_t1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="55dp"
+                            android:text="0 (Qty. 0)"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:text="Status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="80dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_table_status_t1"
+                            android:text="Vacant"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="95dp"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="120dp">
+
+                            <TextView
+                                android:text="Curr Amt."
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:textAlignment="center"
+                                android:layout_weight="1"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_table_amt_t1"
+                                android:text="0.00"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="1"
+                                />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/card_view_table2"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_margin="15dp"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        card_view:cardCornerRadius="15dp"
+                        card_view:cardBackgroundColor="#E6E6E6"
+                        card_view:cardElevation="8dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_table_name_t2"
+                            android:text="TABLE 2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/holo_green_dark"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:text="Item(s)"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="40dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_table_qty_t2"
+                            android:text="0 (Qty. 0)"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="55dp"
+                            />
+
+                        <TextView
+                            android:text="Status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="80dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_table_status_t2"
+                            android:text="Vacant"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="95dp"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="120dp">
+
+                            <TextView
+                                android:text="Curr Amt."
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:textAlignment="center"
+                                android:layout_weight="1"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_table_amt_t2"
+                                android:text="0.00"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="1"
+                                />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/card_view_table3"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_margin="15dp"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        card_view:cardCornerRadius="15dp"
+                        card_view:cardBackgroundColor="#E6E6E6"
+                        card_view:cardElevation="8dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_table_name_t3"
+                            android:text="TABLE 3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/holo_green_dark"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:text="Item(s)"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="40dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_table_qty_t3"
+                            android:text="0 (Qty. 0)"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="55dp"
+                            />
+
+                        <TextView
+                            android:text="Status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="80dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_table_status_t3"
+                            android:text="Vacant"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="95dp"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="120dp">
+
+                            <TextView
+                                android:text="Curr Amt."
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:textAlignment="center"
+                                android:layout_weight="1"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_table_amt_t3"
+                                android:text="0.00"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="1"
+                                />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/card_view_table4"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_margin="15dp"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        card_view:cardCornerRadius="15dp"
+                        card_view:cardBackgroundColor="#E6E6E6"
+                        card_view:cardElevation="8dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_table_name_t4"
+                            android:text="TABLE 4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/holo_green_dark"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:text="Item(s)"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="40dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_table_qty_t4"
+                            android:text="0 (Qty. 0)"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="55dp"
+                            />
+
+                        <TextView
+                            android:text="Status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="80dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_table_status_t4"
+                            android:text="Vacant"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="95dp"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="120dp">
+
+                            <TextView
+                                android:text="Curr Amt."
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:textAlignment="center"
+                                android:layout_weight="1"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_table_amt_t4"
+                                android:text="0.00"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="1"
+                                />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/card_view_table5"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_margin="15dp"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        card_view:cardCornerRadius="15dp"
+                        card_view:cardBackgroundColor="#E6E6E6"
+                        card_view:cardElevation="8dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_table_name_t5"
+                            android:text="TABLE 5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/holo_green_dark"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:text="Item(s)"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="40dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_table_qty_t5"
+                            android:text="0 (Qty. 0)"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="55dp"
+                            />
+
+                        <TextView
+                            android:text="Status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="80dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_table_status_t5"
+                            android:text="Vacant"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="95dp"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="120dp">
+
+                            <TextView
+                                android:text="Curr Amt."
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:textAlignment="center"
+                                android:layout_weight="1"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_table_amt_t5"
+                                android:text="0.00"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="1"
+                                />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/card_view_table6"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_margin="15dp"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        card_view:cardCornerRadius="15dp"
+                        card_view:cardBackgroundColor="#E6E6E6"
+                        card_view:cardElevation="8dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_table_name_t6"
+                            android:text="TABLE 6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/holo_green_dark"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:text="Item(s)"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="40dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_table_qty_t6"
+                            android:text="0 (Qty. 0)"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="55dp"
+                            />
+
+                        <TextView
+                            android:text="Status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="80dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_table_status_t6"
+                            android:text="Vacant"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="95dp"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="120dp">
+
+                            <TextView
+                                android:text="Curr Amt."
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:textAlignment="center"
+                                android:layout_weight="1"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_table_amt_t6"
+                                android:text="0.00"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="1"
+                                />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>
+

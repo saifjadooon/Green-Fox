@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.aptech.greenfox.ActivityAddItems">
+
+    <TextView
+        android:id="@+id/tv_select_category_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Category"
+        android:textColor="@android:color/white"
+        android:background="@android:color/holo_green_dark"
+        android:textAlignment="center"
+        android:textSize="15dp"
+        android:padding="5dp"/>
+
+    <HorizontalScrollView
+        android:id="@+id/hsv_select_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_select_category_title">
+
+        <LinearLayout
+            android:id="@+id/ll_select_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_below="@+id/hsv_select_category">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_select_item_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Item(s)"
+                android:textColor="@android:color/white"
+                android:background="@android:color/holo_green_dark"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                android:padding="5dp"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/ll_select_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_order_review_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Order Review"
+                android:textColor="@android:color/white"
+                android:background="@android:color/holo_green_dark"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                android:padding="5dp"/>
+
+            <ListView
+                android:id="@+id/lv_order_review"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp">
+            </ListView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_items_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/fab_done_icon"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        app:fabCustomSize="50dp"
+        android:backgroundTint="#FFC300"
+        app:borderWidth="0dp"
+        android:clickable="true"
+        />
+
+</RelativeLayout>
