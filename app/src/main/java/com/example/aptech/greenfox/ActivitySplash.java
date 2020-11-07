@@ -1,9 +1,12 @@
 package com.example.aptech.greenfox;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.FirebaseApp;
 
 public class ActivitySplash extends AppCompatActivity {
 
@@ -15,6 +18,8 @@ public class ActivitySplash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         getSupportActionBar().hide();
+
+        FirebaseApp.initializeApp(ActivitySplash.this);
 
         //initializing progress bar and value of it
         progressBar = (ProgressBar) findViewById(R.id.progressBar_splash);

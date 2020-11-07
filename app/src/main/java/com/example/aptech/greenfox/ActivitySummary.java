@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -15,7 +14,6 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.CancellationSignal;
 import android.os.Environment;
@@ -26,14 +24,14 @@ import android.print.PrintDocumentAdapter;
 import android.print.PrintDocumentInfo;
 import android.print.PrintJob;
 import android.print.PrintManager;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.constraint.solver.widgets.Rectangle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.solver.widgets.Rectangle;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,10 +40,7 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.webkit.WebView;
 import android.widget.AdapterView;
-import android.widget.AlphabetIndexer;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,38 +53,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class ActivitySummary extends AppCompatActivity implements View.OnClickListener {
 
@@ -255,7 +233,7 @@ public class ActivitySummary extends AppCompatActivity implements View.OnClickLi
             startActivity(intent);
         }
         if (view == fab_order_final) {
-            new android.support.v7.app.AlertDialog.Builder(this)
+            new androidx.appcompat.app.AlertDialog.Builder(this)
                     .setTitle("Confirmation")
                     .setMessage("Are you sure want to close order and vacant table?")
                     .setIcon(android.R.drawable.ic_dialog_info)
@@ -999,7 +977,7 @@ public class ActivitySummary extends AppCompatActivity implements View.OnClickLi
     }
     private void showSuborderItemsDialog()
     {
-        final android.support.v7.app.AlertDialog.Builder mBuilder = new android.support.v7.app.AlertDialog.Builder(ActivitySummary.this);
+        final androidx.appcompat.app.AlertDialog.Builder mBuilder = new androidx.appcompat.app.AlertDialog.Builder(ActivitySummary.this);
         View mView = getLayoutInflater().inflate(R.layout.custom_items_detail_layout, null);
 
         final ListView lv_suborder_items_detail = (ListView) mView.findViewById(R.id.lv_suborder_items_detail);
@@ -1014,7 +992,7 @@ public class ActivitySummary extends AppCompatActivity implements View.OnClickLi
             }
         });
         mBuilder.setView(mView);
-        final android.support.v7.app.AlertDialog dialog = mBuilder.create();
+        final androidx.appcompat.app.AlertDialog dialog = mBuilder.create();
         dialog.setMessage("Sub Order Detail");
         dialog.show();
     }

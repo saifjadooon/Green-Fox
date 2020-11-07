@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "685121770624",
+    "firebase_url": "https://foodfox-9347c.firebaseio.com",
+    "project_id": "foodfox-9347c",
+    "storage_bucket": "foodfox-9347c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685121770624:android:492fdaa6fb5c980c628265",
+        "android_client_info": {
+          "package_name": "com.example.aptech.greenfox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685121770624-g8kj201at6ljsoah10vtlnjdln8cc1ga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCFj0iG5LnZAwes79xVUvy9ybIjno3lIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685121770624-g8kj201at6ljsoah10vtlnjdln8cc1ga.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

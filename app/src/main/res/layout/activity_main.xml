@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.SwipeRefreshLayout
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                     android:orientation="horizontal"
                     >
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         xmlns:card_view="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/card_view_table1"
                         android:layout_gravity="center"
@@ -148,9 +148,9 @@
 
                         </LinearLayout>
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         xmlns:card_view="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/card_view_table2"
                         android:layout_gravity="center"
@@ -244,7 +244,7 @@
 
                         </LinearLayout>
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
 
@@ -254,7 +254,7 @@
                     android:orientation="horizontal"
                     >
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         xmlns:card_view="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/card_view_table3"
                         android:layout_gravity="center"
@@ -348,9 +348,9 @@
 
                         </LinearLayout>
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         xmlns:card_view="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/card_view_table4"
                         android:layout_gravity="center"
@@ -444,7 +444,7 @@
 
                         </LinearLayout>
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
 
@@ -454,7 +454,7 @@
                     android:orientation="horizontal"
                     >
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         xmlns:card_view="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/card_view_table5"
                         android:layout_gravity="center"
@@ -548,9 +548,9 @@
 
                         </LinearLayout>
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         xmlns:card_view="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/card_view_table6"
                         android:layout_gravity="center"
@@ -644,7 +644,7 @@
 
                         </LinearLayout>
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
 
@@ -654,5 +654,5 @@
 
     </LinearLayout>
 
-</android.support.v4.widget.SwipeRefreshLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

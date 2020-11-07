@@ -4,23 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -30,13 +21,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -49,18 +44,25 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ActivityAddItems extends AppCompatActivity implements View.OnClickListener {
 
+    List<itemDetailsModelClass> list;
     private Button button;
     private Context context;
     private CardView cardview;
@@ -75,7 +77,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
     private ArrayList arrayList_item_qty;
     private ArrayList<String> arrayList_selected_items;
     private FloatingActionButton fab_add_items_done;
-    private String table_no = "", acc_auto_id = "", table_auto_id = "", table_order_auto_id = "", f_item="", f_quantity="";
+    private String table_no = "", acc_auto_id = "", table_auto_id = "", table_order_auto_id = "", f_item = "", f_quantity = "";
 
     ProgressDialog progressDialog;
 
@@ -88,8 +90,8 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_add_items);
 
         context = getApplicationContext();
-        ll_select_category = (LinearLayout)findViewById(R.id.ll_select_category);
-        ll_select_item = (LinearLayout)findViewById(R.id.ll_select_item);
+        ll_select_category = (LinearLayout) findViewById(R.id.ll_select_category);
+        ll_select_item = (LinearLayout) findViewById(R.id.ll_select_item);
 
         lv_order_review = (ListView) findViewById(R.id.lv_order_review);
         fab_add_items_done = (FloatingActionButton) findViewById(R.id.fab_add_items_done);
@@ -97,7 +99,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         acc_auto_id = intent.getStringExtra("acc_auto_id");
         table_auto_id = intent.getStringExtra("table_auto_id");
         table_order_auto_id = intent.getStringExtra("table_order_auto_id");
-       // f_item=intent.getStringExtra("f_item");
+        // f_item=intent.getStringExtra("f_item");
         //f_quantity=intent.getStringExtra("f_quantity");
         arrayList_item_id = new ArrayList();
         arrayList_item_name = new ArrayList();
@@ -141,14 +143,14 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 String item_id = arrayList_selected_items.get(pos).split("#")[0];
                                 String item_name = arrayList_selected_items.get(pos).split("#")[1];
-                                f_item=item_name;
+                                f_item = item_name;
                                 String item_price = arrayList_selected_items.get(pos).split("#")[2];
                                 String item_exist_qty = arrayList_selected_items.get(pos).split("#")[3];
-                                f_quantity=item_exist_qty;
+                                f_quantity = item_exist_qty;
                                 showQtyDialogForEdit(item_id, item_name, item_price, item_exist_qty);
-                                //Toast.makeText(context, item_id, Toast.LENGTH_SHORT).show();
                                 //Log.v("selected items", String.valueOf(arrayList_selected_items));
-                            }})
+                            }
+                        })
                         .setNegativeButton("Remove Item", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -163,10 +165,8 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        if(view == fab_add_items_done)
-        {
-            if(arrayList_selected_items.size() > 0)
-            {
+        if (view == fab_add_items_done) {
+            if (arrayList_selected_items.size() > 0) {
                 new AlertDialog.Builder(this)
                         .setTitle("Confirmation")
                         .setMessage("Are you sure want to generate sub-order?")
@@ -178,18 +178,16 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
                                 String selected_items_json_array = new Gson().toJson(arrayList_selected_items);
                                 new_order_or_suborder_usingVolley("generate_order_suborder_logic", table_auto_id, table_order_auto_id, acc_auto_id, selected_items_json_array);
 
-                            }})
+                            }
+                        })
                         .setNegativeButton("NO", null).show();
-            }
-            else
-            {
+            } else {
                 Toast.makeText(context, "No Item(s) Selected", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void getcategories_usingVolley(final String action)
-    {
+    private void getcategories_usingVolley(final String action) {
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
         //volley code
@@ -199,8 +197,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onResponse(String response) {
 
-                        try
-                        {
+                        try {
                             //Log.v("response", response);
 
                             JSONObject jsonObject = new JSONObject(response);
@@ -212,10 +209,8 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
 
                             //Log.v("response", String.valueOf(jsonArray_response_data));
 
-                            if(response_status.equals("success"))
-                            {
-                                for(int i = 0; i < jsonArray_response_data.length(); i++)
-                                {
+                            if (response_status.equals("success")) {
+                                for (int i = 0; i < jsonArray_response_data.length(); i++) {
                                     JSONObject jsonObject_suborder = jsonArray_response_data.getJSONObject(i);
                                     String category_auto_id = jsonObject_suborder.getString("category_auto_id");
                                     String category_name = jsonObject_suborder.getString("category_name");
@@ -223,15 +218,11 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
                                     CreateCardViewsForCategory(category_auto_id, category_name, category_image);
                                 }
                                 //Log.v("jsonObject_table1", String.valueOf(arrayList_sub_orders));
-                            }
-                            else
-                            {
+                            } else {
                                 show_dialog_message("No Categories", "No Enabled Categories");
                                 //Log.v("response", "Invalid Credentials");
                             }
-                        }
-                        catch(Exception ex)
-                        {
+                        } catch (Exception ex) {
                             show_dialog_message("Network Error", "Check network connection");
                             Log.v("catch err", ex.getMessage());
                         }
@@ -247,8 +238,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
                         show_dialog_message("Network Error", "Check network connection");
                         //Log.v("Network Error", error.getMessage());
                     }
-                })
-        {
+                }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
@@ -259,7 +249,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
             }
         };
 
-        DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(0,-1,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(retryPolicy);
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -267,19 +257,32 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         requestQueue.add(stringRequest);
     }
 
-    private void getitems_usingVolley(final String action, final String category_id)
-    {
+    private void getitems_usingVolley(final String action, final String category_id) {
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
         //volley code
+
+        for (int i = 0; i < Global.itemlist.size(); i++) {
+            //JSONObject jsonObject_suborder = jsonArray_response_data.getJSONObject(i);
+            //String item_auto_id = jsonObject_suborder.optString("item_auto_id");
+            String item_name = Global.itemlist.get(i).getItemName();
+            String Price = Global.itemlist.get(i).getItemPrice();
+            Uri Image  = Global.itemlist.get(i).getItemPic();
+
+            //String item_image = jsonObject_suborder.optString("item_image");
+            //String item_price = jsonObject_suborder.optString("item_price");
+            //CreateCardViewsForItem(item_auto_id, item_name, "€", item_price, item_image);
+            CreateCardViewsForItem( item_name,Price , String.valueOf(Image));
+        }
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_PROCESSING,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
-                        try
-                        {
+
+
+                        try {
                             //Log.v("response", response);
 
                             JSONObject jsonObject = new JSONObject(response);
@@ -287,32 +290,44 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
 
                             String response_status = jsonObject_data.getString("response_status");
                             String response_msg = jsonObject_data.getString("response_msg");
-                            JSONArray jsonArray_response_data = jsonObject_data.getJSONArray("response_data");
+                            JSONArray jsonArray_response_data = (JSONArray) Global.itemlist;
+
+
+                        /*    JSONArray jsonArray_response_data = jsonObject_data.getJSONArray("response_data");*/
 
                             //Log.v("response", String.valueOf(jsonArray_response_data));
 
-                            if(response_status.equals("success"))
-                            {
-                                for(int i = 0; i < jsonArray_response_data.length(); i++)
-                                {
-                                    JSONObject jsonObject_suborder = jsonArray_response_data.getJSONObject(i);
+                            for (int i = 0; i < Global.itemlist.size(); i++) {
+                                //JSONObject jsonObject_suborder = jsonArray_response_data.getJSONObject(i);
+                                //String item_auto_id = jsonObject_suborder.optString("item_auto_id");
+                                String item_name = Global.itemlist.get(i).getItemName();
+                                String Price = Global.itemlist.get(i).getItemPrice();
+                                Uri Image  = Global.itemlist.get(i).getItemPic();
+                                Global.price = Global.itemlist.get(i).getItemPrice();
+
+                                //String item_image = jsonObject_suborder.optString("item_image");
+                                //String item_price = jsonObject_suborder.optString("item_price");
+                                //CreateCardViewsForItem(item_auto_id, item_name, "€", item_price, item_image);
+                                CreateCardViewsForItem(Price, item_name, String.valueOf(Image));
+                            }
+
+                        /*    if (response_status.equals("success")) {
+                                *//*for (int i = 0; i < Global.itemlist.size(); i++) {
+                                    //JSONObject jsonObject_suborder = jsonArray_response_data.getJSONObject(i);
                                     String item_auto_id = jsonObject_suborder.optString("item_auto_id");
-                                    String item_name = jsonObject_suborder.optString("item_name");
+                                    String item_name = Global.itemlist.get(i).getItemName();
                                     String item_image = jsonObject_suborder.optString("item_image");
                                     String item_price = jsonObject_suborder.optString("item_price");
                                     CreateCardViewsForItem(item_auto_id, item_name, "€", item_price, item_image);
-                                }
+                                    CreateCardViewsForItem("item_auto_id", item_name, "€", "item_price", "item_image");
+                                }*//*
                                 //Log.v("jsonObject_table1", String.valueOf(arrayList_sub_orders));
-                            }
-                            else
-                            {
+                            } else {
                                 show_dialog_message("No Items", "No Enabled Items");
                                 //Log.v("response", "Invalid Credentials");
-                            }
-                        }
-                        catch(Exception ex)
-                        {
-                            show_dialog_message("Network Error", "Check network connection");
+                            }*/
+                        } catch (Exception ex) {
+                          //  show_dialog_message("Network Error", "Check network connection");
                             Log.v("catch err", ex.getMessage());
                         }
                         progressDialog.dismiss();
@@ -324,11 +339,10 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
                     public void onErrorResponse(VolleyError error) {
 
                         progressDialog.dismiss();
-                        show_dialog_message("Network Error", "Check network connection");
+                      ///  show_dialog_message("Network Error", "Check network connection");
                         //Log.v("Network Error", error.getMessage());
                     }
-                })
-        {
+                }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
@@ -340,7 +354,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
             }
         };
 
-        DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(0,-1,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(retryPolicy);
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -348,7 +362,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         requestQueue.add(stringRequest);
     }
 
-    private void CreateCardViewsForCategory(final String cat_id, String cat_name, String cat_img_url){
+    private void CreateCardViewsForCategory(final String cat_id, String cat_name, String cat_img_url) {
 
         cardview = new CardView(context);
 
@@ -371,7 +385,10 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(context, cat_id, Toast.LENGTH_SHORT).show();
+
+                Global.selectedCategoryID = cat_id;
+
+                getBreakfast();
                 ll_select_item.removeAllViews();
                 getitems_usingVolley("get_enabled_items", cat_id);
             }
@@ -393,14 +410,14 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         //tv_category_name.setTextColor(Color.GRAY);
         tv_category_name.setTypeface(tv_category_name.getTypeface(), Typeface.BOLD);
         tv_category_name.setGravity(Gravity.CENTER_HORIZONTAL);
-        tv_category_name.setPadding(0,180,0,0);
+        tv_category_name.setPadding(0, 180, 0, 0);
         cardview.addView(tv_category_name);
 
         ll_select_category.addView(cardview);
 
     }
 
-    private void CreateCardViewsForItem(final String item_id, final String item_name, final String item_currency, final String item_price, String cat_img_url){
+    private void CreateCardViewsForItem( final String item_name,final String item_price, String cat_img_url) {
 
         final CardView cardview = new CardView(context);
 
@@ -422,8 +439,8 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(context, item_id, Toast.LENGTH_SHORT).show();
-                showQtyDialog(item_id, item_name, item_price);
+
+                showQtyDialog( item_name, item_price);
             }
         });
 
@@ -434,6 +451,8 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         //RelativeLayout.LayoutParams ivparams = (RelativeLayout.LayoutParams)iv_category_image.getLayoutParams();
         //iv_category_image.requestLayout();
         //Glide.with(context).load(cat_img_url).into(iv_category_image);
+
+
         Glide.with(this).load(cat_img_url).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -452,19 +471,19 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         tv_item_name.setTextColor(Color.WHITE);
         tv_item_name.setTypeface(tv_item_name.getTypeface(), Typeface.BOLD);
         //tv_category_name.setGravity(Gravity.CENTER_HORIZONTAL);
-        tv_item_name.setPadding(15,10,0,0);
+        tv_item_name.setPadding(15, 10, 0, 0);
         tv_item_name.setShadowLayer(2.5f, -2, 2, Color.BLACK);
 
         cardview.addView(tv_item_name);
 
         TextView tv_item_price = new TextView(context);
 
-        tv_item_price.setText(item_currency + " " + item_price);
+        tv_item_price.setText("$" + " " + item_price);
         tv_item_price.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
         tv_item_price.setTextColor(Color.WHITE);
         tv_item_price.setTypeface(tv_item_price.getTypeface(), Typeface.BOLD);
         //tv_category_name.setGravity(Gravity.CENTER_HORIZONTAL);
-        tv_item_price.setPadding(15,0,0,15);
+        tv_item_price.setPadding(15, 0, 0, 15);
         tv_item_price.setGravity(Gravity.BOTTOM);
         tv_item_price.setShadowLayer(2.5f, -2, 2, Color.BLACK);
 
@@ -474,8 +493,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
 
     }
 
-    private void showQtyDialog(final String item_id, final String item_name, final String item_price)
-    {
+    private void showQtyDialog(final String item_id, final String item_name) {
         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(ActivityAddItems.this);
         View mView = getLayoutInflater().inflate(R.layout.custom_qty_layout, null);
 
@@ -489,8 +507,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
             @Override
             public void onClick(View view) {
                 int qty = Integer.parseInt(et_qty.getText().toString().trim());
-                if(qty > 1)
-                {
+                if (qty > 1) {
                     qty--;
                     et_qty.setText(String.valueOf(qty));
                 }
@@ -512,14 +529,12 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
                 int qty = Integer.parseInt(et_qty.getText().toString().trim());
 
                 boolean item_exist = false;
-                for(int count = 0; count < arrayList_selected_items.size(); count++)
-                {
+                for (int count = 0; count < arrayList_selected_items.size(); count++) {
                     String id = arrayList_selected_items.get(count).split("#")[0];
                     String name = arrayList_selected_items.get(count).split("#")[1];
                     String price = arrayList_selected_items.get(count).split("#")[2];
                     String iqty = arrayList_selected_items.get(count).split("#")[3];
-                    if(id.equals(item_id))
-                    {
+                    if (id.equals(item_id)) {
                         item_exist = true;
                         int new_qty = Integer.parseInt(iqty) + qty;
                         double total_price = new_qty * Double.parseDouble(price);
@@ -527,10 +542,10 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
                         break;
                     }
                 }
-                if(item_exist == false)
-                {
-                    double total_price = qty * Double.parseDouble(item_price);
-                    arrayList_selected_items.add(item_id + "#" + item_name + "#" + item_price + "#" + qty + "#" + total_price);
+                if (item_exist == false) {
+                    double total_price = qty * Double.parseDouble("45");
+
+                    arrayList_selected_items.add(item_id + "#" + item_name + "#" + Global.price + "#" + qty + "#" + total_price);
                 }
                 //array_selected_items = new String[][] {}
 
@@ -552,8 +567,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         dialog.show();
     }
 
-    private void showQtyDialogForEdit(final String item_id, final String item_name, final String item_price, final String qty_exist)
-    {
+    private void showQtyDialogForEdit(final String item_id, final String item_name, final String item_price, final String qty_exist) {
         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(ActivityAddItems.this);
         View mView = getLayoutInflater().inflate(R.layout.custom_qty_layout, null);
 
@@ -567,8 +581,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
             @Override
             public void onClick(View view) {
                 int qty = Integer.parseInt(et_qty.getText().toString().trim());
-                if(qty > 1)
-                {
+                if (qty > 1) {
                     qty--;
                     et_qty.setText(String.valueOf(qty));
                 }
@@ -592,14 +605,12 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
                 int qty = Integer.parseInt(et_qty.getText().toString().trim());
 
                 boolean item_exist = false;
-                for(int count = 0; count < arrayList_selected_items.size(); count++)
-                {
+                for (int count = 0; count < arrayList_selected_items.size(); count++) {
                     String id = arrayList_selected_items.get(count).split("#")[0];
                     String name = arrayList_selected_items.get(count).split("#")[1];
                     String price = arrayList_selected_items.get(count).split("#")[2];
                     String iqty = arrayList_selected_items.get(count).split("#")[3];
-                    if(id.equals(item_id))
-                    {
+                    if (id.equals(item_id)) {
                         item_exist = true;
                         int new_qty = qty;
                         double total_price = new_qty * Double.parseDouble(price);
@@ -607,8 +618,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
                         break;
                     }
                 }
-                if(item_exist == false)
-                {
+                if (item_exist == false) {
                     double total_price = qty * Double.parseDouble(item_price);
                     arrayList_selected_items.add(item_id + "#" + item_name + "#" + item_price + "#" + qty + "#" + total_price);
                 }
@@ -632,10 +642,8 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         dialog.show();
     }
 
-    private void getItemsForOrderReview()
-    {
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList_selected_items)
-        {
+    private void getItemsForOrderReview() {
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList_selected_items) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -656,8 +664,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         lv_order_review.setAdapter(arrayAdapter);
     }
 
-    private void show_dialog_message(String title, String msg)
-    {
+    private void show_dialog_message(String title, String msg) {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setMessage(msg);
@@ -675,8 +682,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         alertDialog.show();
     }
 
-    private void new_order_or_suborder_usingVolley(final String action, final String table_id, final String order_auto_id, final String acc_id, final String selected_items_json_array)
-    {
+    private void new_order_or_suborder_usingVolley(final String action, final String table_id, final String order_auto_id, final String acc_id, final String selected_items_json_array) {
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
         //volley code
@@ -686,8 +692,7 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onResponse(String response) {
 
-                        try
-                        {
+                        try {
                             //Log.v("response", response);
 
                             JSONObject jsonObject = new JSONObject(response);
@@ -699,22 +704,17 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
 
                             Log.v("response", String.valueOf(jsonArray_response_data));
 
-                            if(response_status.equals("success"))
-                            {
+                            if (response_status.equals("success")) {
 
                                 Toast.makeText(context, response_msg, Toast.LENGTH_SHORT).show();
                                 //Log.v("jsonObject_table1", String.valueOf(arrayList_sub_orders));
-                            }
-                            else
-                            {
-                                show_dialog_message("No Categories", "No Enabled Categories");
+                            } else {
+                              //  show_dialog_message("No Categories", "No Enabled Categories");
                                 //Log.v("response", "Invalid Credentials");
                             }
                             finish();
-                        }
-                        catch(Exception ex)
-                        {
-                            show_dialog_message("Network Error", "Check network connection");
+                        } catch (Exception ex) {
+                          //  show_dialog_message("Network Error", "Check network connection");
                             Log.v("catch err", ex.getMessage());
                         }
                         progressDialog.dismiss();
@@ -726,11 +726,10 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
                     public void onErrorResponse(VolleyError error) {
 
                         progressDialog.dismiss();
-                        show_dialog_message("Network Error", "Check network connection");
+                    //    show_dialog_message("Network Error", "Check network connection");
                         //Log.v("Network Error", error.networkResponse.data.toString());
                     }
-                })
-        {
+                }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
@@ -739,15 +738,15 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
                 params.put("table_auto_id", table_id);
                 params.put("order_auto_id", order_auto_id);
                 params.put("acc_auto_id", acc_id);
-                params.put("f_item",f_item);
-                params.put("f_quantity",f_quantity);
+                params.put("f_item", f_item);
+                params.put("f_quantity", f_quantity);
                 params.put("selected_items_json_array", selected_items_json_array);
 
                 return params;
             }
         };
 
-        DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(0,-1,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(retryPolicy);
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -755,15 +754,13 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         requestQueue.add(stringRequest);
     }
 
-    private void showCustomOptionsDialog(ArrayList arrayList_options, final int item_position)
-    {
-        final android.support.v7.app.AlertDialog.Builder mBuilder = new android.support.v7.app.AlertDialog.Builder(ActivityAddItems.this);
+    private void showCustomOptionsDialog(ArrayList arrayList_options, final int item_position) {
+        final androidx.appcompat.app.AlertDialog.Builder mBuilder = new androidx.appcompat.app.AlertDialog.Builder(ActivityAddItems.this);
         View mView = getLayoutInflater().inflate(R.layout.custom_list_options_layout, null);
 
         final ListView lv_custom_options = (ListView) mView.findViewById(R.id.lv_custom_options);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList_options)
-        {
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList_options) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -781,7 +778,6 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
         lv_custom_options.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(context, String.valueOf(i), Toast.LENGTH_SHORT).show();
                 arrayList_selected_items.remove(item_position);
                 getItemsForOrderReview();
             }
@@ -795,8 +791,46 @@ public class ActivityAddItems extends AppCompatActivity implements View.OnClickL
             }
         });*/
         mBuilder.setView(mView);
-        final android.support.v7.app.AlertDialog dialog = mBuilder.create();
+        final androidx.appcompat.app.AlertDialog dialog = mBuilder.create();
         //dialog.setMessage("Options");
         dialog.show();
+    }
+
+
+
+
+    public void getBreakfast() {
+        DatabaseReference reference;
+        reference = FirebaseDatabase.getInstance().getReference();
+        list = new ArrayList<>();
+
+        reference.child(Global.selectedCategoryID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.getValue() != null) {
+
+                    Global.itemlist.clear();
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        itemDetailsModelClass info = new itemDetailsModelClass();
+
+                        info.setItemName(snapshot.child("ItemName").getValue().toString());
+                        info.setItemPrice(snapshot.child("Price").getValue().toString());
+                        info.setPostID(snapshot.child("postID").getValue().toString());
+                        info.setItemPic(snapshot.child("Image").getValue().toString());
+
+                        list.add(info);
+                        Global.itemlist.add(info);
+                    }
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
     }
 }

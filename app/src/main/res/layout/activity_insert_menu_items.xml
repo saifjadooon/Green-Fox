@@ -1,75 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/background1"
     android:layout_height="match_parent"
     tools:context=".Insert_menu_items">
 
 
-    <EditText
-        android:id="@+id/e_item_name"
-        android:layout_width="315dp"
-        android:layout_height="51dp"
-        android:ems="10"
-        android:hint="Item Name"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        app:cardCornerRadius="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_registration"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.406"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.326" />
+        app:layout_constraintTop_toBottomOf="@+id/insert_item">
 
-    <EditText
-        android:id="@+id/e_item_price"
-        android:layout_width="315dp"
-        android:layout_height="51dp"
-        android:ems="10"
-        android:hint="Item Price"
-        android:inputType="textPhonetic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.406"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.58" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/MainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/item_status"
-        android:layout_width="315dp"
-        android:layout_height="51dp"
-        android:ems="10"
-        android:hint="Item Status"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.406"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.716" />
+            <Button
+                android:id="@+id/btn_Attachments"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:padding="5dp"
+                android:text="Add item picture"
+                android:textAlignment="textStart"
+                android:textSize="12sp"
+                app:layout_constraintDimensionRatio="h,4:0.6"
+                app:layout_constraintEnd_toEndOf="@+id/categoryLayout"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/categoryLayout"
+                app:layout_constraintTop_toBottomOf="@+id/categoryLayout" />
 
-    <EditText
-        android:id="@+id/e_item_image_url"
-        android:layout_width="315dp"
-        android:layout_height="51dp"
-        android:ems="10"
-        android:hint="Image URL"
-        android:inputType="textPhonetic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.406"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
+            <ImageView
+                android:id="@+id/iv_selected_image"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:background="#000"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:textColor="@color/pdlg_color_black"
+                android:text="Add item details below"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/IntroductionLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="@+id/TitleLayout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/TitleLayout"
+                app:layout_constraintTop_toBottomOf="@+id/TitleLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Item price"
+                    android:inputType="number"
+                    android:lines="2"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ConsultationLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="@+id/IntroductionLayout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/IntroductionLayout"
+                app:layout_constraintTop_toBottomOf="@+id/IntroductionLayout"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/DescriptionLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                app:endIconMode="clear_text"
+
+                app:layout_constraintEnd_toEndOf="@+id/ConsultationLayout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/ConsultationLayout"
+                app:layout_constraintTop_toBottomOf="@+id/ConsultationLayout"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/categoryLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="Select category"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_selected_image">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TitleLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="0"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="@+id/btn_Attachments"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/btn_Attachments"
+                app:layout_constraintTop_toBottomOf="@+id/btn_Attachments">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_item_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Item name"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/btn_registration"
         android:layout_width="190dp"
         android:layout_height="48dp"
         android:background="@drawable/bmi_btn"
-        android:text="Register"
+        android:text="Upload"
         android:textColor="#FCFBFC"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -85,7 +192,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/baloo_bhai"
         android:text="Insert New Item"
-        android:textColor="#013304"
+        android:textColor="#fff"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +207,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/baloo_bhai"
         android:text="Green Fox"
-        android:textColor="#013304"
+        android:textColor="#fff"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,4 +216,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.099" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
